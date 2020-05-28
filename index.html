@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Página</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+<style>
+body {
+    font-family: 'Roboto';
+}
+</style>   
+<body>
+  
+<div id="root"></div>
+
+<script  type="text/babel">
+
+class App extends React.Component {
+  state = {
+   membros: []
+  }
+
+  componentDidMount() {
+    const url = 'fetch.php'
+    axios.get(url).then(response => response.data)
+    .then((data) => {
+      this.setState({membros: data })
+      console.log(this.state.membros)
+     })
+  }
+  render() {
+    return (
+        <React.Fragment>
+
+        <div className='container' >
+               {this.state.membros.map((membros) => (
+        <div className='card' style={{padding: "2%",}}>
+        <p>{ membros.nome }</p>
+        </div>
+        ))}
+        </div>
+        </React.Fragment>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+</body>
+</html>
